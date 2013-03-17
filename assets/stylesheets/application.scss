@@ -1,0 +1,45 @@
+@import "bootstrap.scss";
+
+body {
+	background-color: #666;
+}
+
+input[type='text'] {
+	vertical-align: top;
+}
+
+.container {
+	background-color: #666;
+}
+
+.inner_container {
+	background-color: #ddd;
+	padding: 50px;
+}
+
+#messages {
+	border: 1px solid #bbb;
+	background-color: #fff;
+	width: 96%;
+	height: 350px;
+	overflow: scroll;
+	border-radius: 4px;
+	padding: 2%;
+}
+
+#message-actions {
+	margin-top: 5px;
+	width: 100%;
+
+	button {
+		width: 15%;
+		margin-right: 0px;
+		float: right;
+	}
+
+	input[type='text'] {
+		margin-left: 0px;
+		width: 80%;
+		float: left;
+	}
+}

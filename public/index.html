@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Barebones Ember</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="stylesheets/application.css" rel="stylesheet" media="screen">
+
+    <script type="text/x-handlebars" data-template-name="application">  
+      {{outlet}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="index">
+      <h1 class="text-center">Welcome to SimpleChat!</h1>
+
+      {{render 'login' controller='user'}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name='user'>
+     <p class="text-right">User: {{username}} <button class="btn btn-small" {{action logout}}>Logout</button></p>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="login">
+      <p class="text-center">
+        {{view Ember.TextField valueBinding="username"}} 
+        <button class="btn btn-primary" {{action login username}}>Join</button>
+      </p>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="chat">
+      {{render 'user'}}
+      <h1>Simple Chat</h1>
+
+      
+      <div id="messages">
+        {{render "messages"}}
+      </div>
+
+      <div id="message-actions">
+        {{partial 'new_message'}}
+      </div>
+
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="messages">
+      {{#each message in controller}}
+        <p>{{message.createdAt}} - <strong>{{message.username}}:</strong> {{message.content}}</p>
+      {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="_new_message">
+        {{view Ember.TextField valueBinding="newMessageField"}}
+        <button class="btn" {{action postMessage newMessageField}}>Send</button>
+    </script>
+
+
+  </head>
+  <body>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span2"></div>
+        <div id="application_root" class="inner_container span8">
+          
+        </div>
+      <div class="span2"></div>
+    </div>
+  </div>
+
+
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/handlebars.js"></script>
+    <script src="javascripts/ember-1.0.0-rc.1.js"></script>
+    <script src="javascripts/ember-data.js"></script>
+    <script src="javascripts/app.js"></script>
+  </body>
+</html>
