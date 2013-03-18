@@ -20,20 +20,19 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="login">
-      <p class="text-center">
-        {{view Ember.TextField valueBinding="username"}} 
-        <button class="btn btn-primary" {{action login username}}>Join</button>
-      </p>
+      <form>
+        <p class="text-center">
+          {{view Ember.TextField valueBinding="username"}} 
+          <button class="btn btn-primary" {{action login username}}>Join</button>
+        </p>
+      </form>
     </script>
 
     <script type="text/x-handlebars" data-template-name="chat">
       {{render 'user'}}
       <h1>Simple Chat</h1>
 
-      
-      <div id="messages">
-        {{render "messages"}}
-      </div>
+      {{render "messages"}}
 
       <div id="message-actions">
         {{partial 'new_message'}}
@@ -48,8 +47,10 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="_new_message">
-        {{view Ember.TextField valueBinding="newMessageField"}}
-        <button class="btn" {{action postMessage newMessageField}}>Send</button>
+        <form>
+          {{view Ember.TextField valueBinding="newMessageField"}}
+          <button class="btn" {{action postMessage newMessageField}}>Send</button>
+        </form>
     </script>
 
 

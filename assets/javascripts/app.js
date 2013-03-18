@@ -36,7 +36,7 @@ App.ApplicationController = Ember.Controller.extend();
 
 App.ChatController = Ember.Controller.extend({
 	postMessage: function(message) {
-		var data = { message: {username: this.controllerFor('user').get('username'), content: message}};
+		var data = { message: { content: message }};
 		$.post('/messages',JSON.stringify(data));
 		this.set('newMessageField','');
 	}
@@ -50,6 +50,29 @@ App.UserController = Ember.ObjectController.extend({
 		return (this.get('username') != '');
 	},
 });
+
+//views
+App.MessagesView = Ember.View.extend({
+	template: 'messages',
+	tagName: 'div',
+	classNames: ['messages'],
+
+	messageAdded: function() {
+		//wait until all bindings updated (otherwise scroll will happen too soon)
+		Ember.run.next(this, function() {
+			this.scroll();
+		});
+	}.observes('controller.@each'),
+
+	scroll: function() {
+		//need to determine the "right" way to wait until view is in dom
+		if (this.state == "inDOM") {
+			var el = this.$();
+			el.scrollTop(el.prop('scrollHeight')-el.height());
+		}
+	}
+});
+
 
 //routes
 App.Router.map(function() {
@@ -113,21 +136,21 @@ App.IndexRoute = Ember.Route.extend({
 	setupController: function() {
 		console.log('set up index');
 	},
-	// redirect: function() {
-	// 	if (this.controllerFor('user').logged_in()) {
-	// 		this.transitionTo('chat');
-	// 		return;
-	// 	}
-	// }
+	redirect: function() {
+		if (this.controllerFor('user').logged_in()) {
+			this.transitionTo('chat');
+			return;
+		}
+	}
 });
 
 App.ChatRoute = Ember.Route.extend({
 	setupController: function() {
 		this.controllerFor('messages').set('model', App.Message.find());
 	},
-	// redirect: function() {
-	// 	if (! this.controllerFor('user').logged_in()) {
-	// 		this.transitionTo('index');
-	// 	}
-	// }
+	redirect: function() {
+		if (! this.controllerFor('user').logged_in()) {
+			this.transitionTo('index');
+		}
+	}
 });

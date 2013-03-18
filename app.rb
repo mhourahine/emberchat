@@ -42,6 +42,9 @@ end
 post '/messages' do
 	request.body.rewind  # in case someone already read it
   	data = JSON.parse request.body.read
+  	
+  	#add current user to message data	
+  	data['message']['username'] = session[:current_user][:username]
 
   	#TODO - store message somehwere
 
