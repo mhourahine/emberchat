@@ -1,6 +1,6 @@
 # Ember Chat
 
-This is a demo app I created to help learn Ember JS.  It uses for the server side and Twitter Bootstrap for styling.
+This is a demo app I created to help learn Ember JS.  It uses Sinatra for the server side and Twitter Bootstrap for styling.
 
 # Remaining To Dos (without persistance)
 
