@@ -33,8 +33,8 @@ get '/messages' do
 	content_type 'application/json'
 	{
 		messages: [
-			{ username: 'anon', content: 'Welcome to Simple Chat!', createdAt: Time.now },
-			{ username: 'anon', content: "Let's get chatting...", createdAt: Time.now }
+			{ username: 'anon', content: 'Welcome to Ember Chat!', createdAt: Time.now.to_s },
+			{ username: 'anon', content: "Let's get chatting...", createdAt: Time.now.to_s }
 		]
 	}.to_json
 end
@@ -43,10 +43,9 @@ post '/messages' do
 	request.body.rewind  # in case someone already read it
   	data = JSON.parse request.body.read
   	
-  	#add current user to message data	
+  	#add current user and date to message data	
   	data['message']['username'] = session[:current_user][:username]
-
-  	#TODO - store message somehwere
+  	data['message']['createdAt'] = Time.now.to_s
 
   	#send message out to all clients
   	settings.connections.each { |out| out << "data: #{data.to_json}\n\n" }

@@ -15,11 +15,10 @@ App.ready = function() {
     	console.log("Message received: " + e.data);
 
     	var message_data = JSON.parse(e.data).message;
-    	message = App.Message.createRecord({ username: message_data.username, content: message_data.content });
+    	message = App.Message.createRecord(message_data);
 		//message.get('transaction').commit(); - not committing back to server
     	
     };
-
     console.log('app is ready');
 }
 
@@ -65,8 +64,7 @@ App.MessagesView = Ember.View.extend({
 	}.observes('controller.@each'),
 
 	scroll: function() {
-		//need to determine the "right" way to wait until view is in dom
-		if (this.state == "inDOM") {
+		if (this.get('state') == "inDOM") {
 			var el = this.$();
 			el.scrollTop(el.prop('scrollHeight')-el.height());
 		}
