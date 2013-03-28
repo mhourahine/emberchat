@@ -45,7 +45,7 @@ App.MessagesController = Ember.ArrayController.extend();
 
 App.UserController = Ember.ObjectController.extend({
 	logged_in: function() {
-		//am I logged in?
+		//am I "logged in"?
 		return (this.get('username') != '');
 	},
 });
@@ -64,10 +64,8 @@ App.MessagesView = Ember.View.extend({
 	}.observes('controller.@each'),
 
 	scroll: function() {
-		if (this.get('state') == "inDOM") {
-			var el = this.$();
-			el.scrollTop(el.prop('scrollHeight')-el.height());
-		}
+		var el = this.$();
+		el.scrollTop(el.prop('scrollHeight')-el.height());
 	}
 });
 
